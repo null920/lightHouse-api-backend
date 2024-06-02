@@ -1,0 +1,18 @@
+# 测试配置文件
+server:
+  port: 9527
+  # 接口文档配置
+knife4j:
+  enable: true
+  openapi:
+    title: "数字灯塔API开放平台"
+    version: 1.0
+    license: Apache 2.0
+    license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.lighthouse.api.controller
+    description: "数字灯塔API开放平台接口文档"
+    concat: null&&
