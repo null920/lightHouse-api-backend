@@ -2,6 +2,8 @@
 ###  ###
 .DS_Store
 nginx.conf
+application-prod.yml
+application.yml
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
