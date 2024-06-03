@@ -1,6 +1,7 @@
 package com.lighthouse.api.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -29,6 +30,11 @@ public class InterfaceInfo implements Serializable {
      * 接口地址
      */
     private String url;
+
+    /**
+     * 请求参数
+     */
+    private String requestParams;
 
     /**
      * 请求类型
@@ -63,11 +69,13 @@ public class InterfaceInfo implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date updateTime;
 
     /**

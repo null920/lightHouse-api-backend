@@ -4,9 +4,6 @@ import com.lighthouse.api.common.ErrorCode;
 
 /**
  * 抛异常工具类
- *
- * 
- * 
  */
 public class ThrowUtils {
 

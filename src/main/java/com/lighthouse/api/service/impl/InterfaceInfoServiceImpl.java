@@ -31,7 +31,6 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         String responseHeader = interfaceInfo.getResponseHeader();
         Long userId = interfaceInfo.getUserId();
         String description = interfaceInfo.getDescription();
-        Integer status = interfaceInfo.getStatus();
         // 创建时，参数不能为空
         if (add) {
             ThrowUtils.throwIf(StringUtils.isAnyBlank(name, url, method, requestHeader, responseHeader, description), ErrorCode.PARAMS_ERROR);

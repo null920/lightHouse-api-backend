@@ -11,10 +11,9 @@ import java.util.Date;
 
 /**
  * 用户
- *
  * @TableName user
  */
-@TableName(value = "user")
+@TableName(value ="user")
 @Data
 public class User implements Serializable {
     /**
@@ -64,6 +63,16 @@ public class User implements Serializable {
     private String userRole;
 
     /**
+     * accessKey
+     */
+    private String accessKey;
+
+    /**
+     * secretKey
+     */
+    private String secretKey;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -79,5 +88,5 @@ public class User implements Serializable {
     private Integer deleted;
 
     @TableField(exist = false)
-    private static final long serialVersionUID = 6527529597039300173L;
+    private static final long serialVersionUID = 1L;
 }
