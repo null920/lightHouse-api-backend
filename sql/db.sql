@@ -58,7 +58,7 @@ values ('euw', 'www.danika-pfeffer.io', 'DELETE', 19);
 insert into lightHouse_api.`interface_info` (`name`, `url`, `method`, `user_id`)
 values ('9h0', 'www.devorah-bernier.com', 'POST', 20);
 
-
+-- 用户信息
 create table if not exists user
 (
     id            bigint auto_increment comment 'id' primary key,
@@ -77,3 +77,18 @@ create table if not exists user
     deleted       tinyint      default 0                 not null comment '是否删除',
     index idx_unionId (union_id)
 ) comment '用户' collate = utf8mb4_unicode_ci;
+
+
+-- 用户调用接口关系表
+create table if not exists lightHouse_api.`user_interface_info`
+(
+    `id`                bigint                             not null auto_increment comment '主键' primary key,
+    `user_id`           bigint                             not null comment '调用用户 id',
+    `interface_info_id` bigint                             not null comment '被调用接口 id',
+    `total_invoke_num`  bigint   default 0                 not null comment '总接口调用次数',
+    `left_invoke_num`   bigint   default 0                 not null comment '剩余接口调用次数',
+    `status`            tinyint  default 0                 not null comment '0-正常 1-禁用',
+    `create_time`       datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    `update_time`       datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    `deleted`           tinyint  default 0                 not null comment '是否删除(0-未删, 1-已删)'
+) comment '用户接口关系表';
