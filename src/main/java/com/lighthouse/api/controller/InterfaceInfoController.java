@@ -16,7 +16,6 @@ import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
 import com.lighthouse.api.model.entity.InterfaceInfo;
 import com.lighthouse.api.model.entity.User;
 import com.lighthouse.api.model.enums.InterfaceInfoStatusEnum;
-import com.lighthouse.api.model.vo.InterfaceInfoVO;
 import com.lighthouse.api.service.InterfaceInfoService;
 import com.lighthouse.api.service.UserService;
 import com.lighthouse.sdk.client.LightHouseAPIClient;
