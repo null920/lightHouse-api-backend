@@ -1,7 +1,8 @@
 package com.lighthouse.api.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lighthouse.api.model.entity.InterfaceInfo;
+import com.lighthouse.common.entity.InterfaceInfo;
+
 
 /**
  * @author null&&
@@ -11,6 +12,7 @@ import com.lighthouse.api.model.entity.InterfaceInfo;
 public interface InterfaceInfoService extends IService<InterfaceInfo> {
     /**
      * 验证接口参数
+     *
      * @param interfaceInfo 参数信息
      * @param add
      */

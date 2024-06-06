@@ -5,8 +5,8 @@ import com.lighthouse.api.common.ErrorCode;
 import com.lighthouse.api.exception.BusinessException;
 import com.lighthouse.api.exception.ThrowUtils;
 import com.lighthouse.api.mapper.InterfaceInfoMapper;
-import com.lighthouse.api.model.entity.InterfaceInfo;
 import com.lighthouse.api.service.InterfaceInfoService;
+import com.lighthouse.common.entity.InterfaceInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

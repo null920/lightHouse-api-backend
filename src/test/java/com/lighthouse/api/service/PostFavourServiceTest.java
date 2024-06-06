@@ -2,7 +2,6 @@ package com.lighthouse.api.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lighthouse.api.model.entity.Post;
 import com.lighthouse.api.model.entity.User;
 import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;

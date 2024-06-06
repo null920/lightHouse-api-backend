@@ -13,11 +13,12 @@ import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoAddRequest;
 import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoInvokeRequest;
 import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
 import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
-import com.lighthouse.api.model.entity.InterfaceInfo;
-import com.lighthouse.api.model.entity.User;
+
 import com.lighthouse.api.model.enums.InterfaceInfoStatusEnum;
 import com.lighthouse.api.service.InterfaceInfoService;
 import com.lighthouse.api.service.UserService;
+import com.lighthouse.common.entity.InterfaceInfo;
+import com.lighthouse.common.entity.User;
 import com.lighthouse.sdk.client.LightHouseAPIClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

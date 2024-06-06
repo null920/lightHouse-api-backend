@@ -1,7 +1,7 @@
 package com.lighthouse.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lighthouse.api.model.entity.InterfaceInfo;
+import com.lighthouse.common.entity.InterfaceInfo;
 
 /**
  * @author null&&

@@ -2,9 +2,6 @@ package com.lighthouse.api.common;
 
 /**
  * 返回工具类
- *
- * 
- * 
  */
 public class ResultUtils {
 

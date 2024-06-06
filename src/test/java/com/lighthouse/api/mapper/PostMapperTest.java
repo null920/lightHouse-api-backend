@@ -1,6 +1,5 @@
 package com.lighthouse.api.mapper;
 
-import com.lighthouse.api.model.entity.Post;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
