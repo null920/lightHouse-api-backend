@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lighthouse.api.common.ErrorCode;
 import com.lighthouse.api.exception.BusinessException;
 import com.lighthouse.api.mapper.UserInterfaceInfoMapper;
-import com.lighthouse.api.model.entity.UserInterfaceInfo;
 import com.lighthouse.api.service.UserInterfaceInfoService;
 
+import com.lighthouse.common.entity.UserInterfaceInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,11 +49,11 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
         //todo 加分布式锁
 
         UpdateWrapper<UserInterfaceInfo> wrapper = new UpdateWrapper<>();
-        wrapper.eq("interfaceInfoId", interfaceInfoId);
-        wrapper.eq("userId", userId);
+        wrapper.eq("interface_info_id", interfaceInfoId);
+        wrapper.eq("user_id", userId);
         // 剩余次数大于0
-        wrapper.gt("leftInvokeNum", 0);
-        wrapper.setSql("leftInvokeNum = leftInvokeNum - 1, totalInvokeNum = totalInvokeNum + 1");
+        wrapper.gt("left_invoke_num", 0);
+        wrapper.setSql("left_invoke_num = left_invoke_num - 1, total_invoke_num = total_invoke_num + 1");
         return this.update(wrapper);
     }
 }

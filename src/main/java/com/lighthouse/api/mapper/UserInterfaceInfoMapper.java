@@ -1,7 +1,10 @@
 package com.lighthouse.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lighthouse.api.model.entity.UserInterfaceInfo;
+import com.lighthouse.api.model.vo.UserInterfaceInfoVO;
+import com.lighthouse.common.entity.UserInterfaceInfo;
+
+import java.util.List;
 
 /**
  * @author Ycri
@@ -11,6 +14,7 @@ import com.lighthouse.api.model.entity.UserInterfaceInfo;
  */
 public interface UserInterfaceInfoMapper extends BaseMapper<UserInterfaceInfo> {
 
+    List<UserInterfaceInfoVO> listTopInvokeInterface(int limit);
 }
 
 

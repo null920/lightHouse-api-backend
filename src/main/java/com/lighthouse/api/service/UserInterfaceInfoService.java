@@ -2,7 +2,8 @@ package com.lighthouse.api.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lighthouse.api.model.entity.UserInterfaceInfo;
+import com.lighthouse.common.entity.UserInterfaceInfo;
+
 
 /**
  * @author Ycri

@@ -1,15 +1,16 @@
 package com.lighthouse.api.model.vo;
 
-import com.lighthouse.common.entity.InterfaceInfo;
+import com.lighthouse.common.entity.UserInterfaceInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 接口信息视图
+ * @author null&&
+ * @Date 2024/6/7 22:50
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class InterfaceInfoVO extends InterfaceInfo {
+public class UserInterfaceInfoVO extends UserInterfaceInfo {
     /**
      * 调用次数
      */

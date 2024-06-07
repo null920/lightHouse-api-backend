@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lighthouse.api.mapper.UserInterfaceInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.lighthouse.api.model.entity.UserInterfaceInfo">
+    <resultMap id="BaseResultMap" type="com.lighthouse.common.entity.UserInterfaceInfo">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="userId" column="user_id" jdbcType="BIGINT"/>
         <result property="interfaceInfoId" column="interface_info_id" jdbcType="BIGINT"/>
@@ -21,4 +21,11 @@
         total_invoke_num,left_invoke_num,status,
         create_time,update_time,deleted
     </sql>
+    <select id="listTopInvokeInterface" resultType="com.lighthouse.api.model.vo.UserInterfaceInfoVO">
+        select interface_info_id, sum(total_invoke_num) as total_num
+        from user_interface_info
+        group by interface_info_id
+        order by total_num desc
+        limit #{limit};
+    </select>
 </mapper>
