@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @MapperScan("com.lighthouse.api.mapper")
 @EnableDubbo
+@EnableScheduling
 public class MainApplication {
 
     public static void main(String[] args) {

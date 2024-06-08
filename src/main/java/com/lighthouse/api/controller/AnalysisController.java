@@ -45,7 +45,9 @@ public class AnalysisController {
     @GetMapping("/top/interface/invoke")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<List<InterfaceInfoVO>> listTopInvokeInterface() {
+        // 获取接口调用排名前几的接口
         List<UserInterfaceInfoVO> userInterfaceInfoList = userInterfaceInfoMapper.listTopInvokeInterface(3);
+        // 按接口 id 分组
         Map<Long, List<UserInterfaceInfoVO>> interfaceInfoIdObjMap = userInterfaceInfoList.stream().collect(Collectors.groupingBy(UserInterfaceInfo::getInterfaceInfoId));
         QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("id", interfaceInfoIdObjMap.keySet());
@@ -53,10 +55,11 @@ public class AnalysisController {
         if (CollectionUtils.isEmpty(interfaceInfoList)) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR);
         }
+        // 封装返回
         List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream().map(interfaceInfo -> {
             InterfaceInfoVO interfaceInfoVO = new InterfaceInfoVO();
             BeanUtils.copyProperties(interfaceInfo, interfaceInfoVO);
-            Long totalNum = interfaceInfoIdObjMap.get(interfaceInfo.getId()).get(0).getTotalNum();
+            Integer totalNum = interfaceInfoIdObjMap.get(interfaceInfo.getId()).get(0).getTotalNum();
             interfaceInfoVO.setTotalNum(totalNum);
             return interfaceInfoVO;
         }).collect(Collectors.toList());

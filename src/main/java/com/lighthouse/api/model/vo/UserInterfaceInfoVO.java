@@ -14,5 +14,5 @@ public class UserInterfaceInfoVO extends UserInterfaceInfo {
     /**
      * 调用次数
      */
-    private Long totalNum;
+    private Integer totalNum;
 }

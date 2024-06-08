@@ -1,5 +1,7 @@
 package com.lighthouse.api.service.impl;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lighthouse.api.common.ErrorCode;
 import com.lighthouse.api.exception.BusinessException;
@@ -24,16 +26,16 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         if (interfaceInfo == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+
         String name = interfaceInfo.getName();
         String url = interfaceInfo.getUrl();
         String method = interfaceInfo.getMethod();
         String requestHeader = interfaceInfo.getRequestHeader();
         String responseHeader = interfaceInfo.getResponseHeader();
-        Long userId = interfaceInfo.getUserId();
         String description = interfaceInfo.getDescription();
         // 创建时，参数不能为空
         if (add) {
-            ThrowUtils.throwIf(StringUtils.isAnyBlank(name, url, method, requestHeader, responseHeader, description), ErrorCode.PARAMS_ERROR);
+            ThrowUtils.throwIf(StringUtils.isAnyBlank(name, url, method, requestHeader, responseHeader), ErrorCode.PARAMS_ERROR);
         }
         // 有参数则校验
         if (StringUtils.isNotBlank(name) && name.length() > 50) {

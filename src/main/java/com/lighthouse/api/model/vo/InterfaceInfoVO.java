@@ -13,5 +13,5 @@ public class InterfaceInfoVO extends InterfaceInfo {
     /**
      * 调用次数
      */
-    private Long totalNum;
+    private Integer totalNum;
 }
