@@ -1,0 +1,28 @@
+server:
+  port: 7362
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: api_route
+          uri: http://localhost:8023
+          predicates:
+            - Path=/api/**
+
+# 开启日志方便查看
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        cloud:
+#          gateway: trace
+dubbo:
+  application:
+    name: dubbo-springboot-demo-provider
+    logger: slf4j
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://localhost:8848
