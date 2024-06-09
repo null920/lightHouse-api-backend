@@ -2,6 +2,9 @@ package com.lighthouse.api.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lighthouse.common.entity.InterfaceInfo;
+import com.lighthouse.common.entity.UserInterfaceInfo;
+
+import java.util.List;
 
 
 /**

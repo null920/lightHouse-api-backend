@@ -2,7 +2,6 @@ package com.lighthouse.api.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.gson.Gson;
 import com.lighthouse.api.annotation.AuthCheck;
 import com.lighthouse.api.common.*;
 import com.lighthouse.api.constant.CommonConstant;
@@ -13,13 +12,14 @@ import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoAddRequest;
 import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoInvokeRequest;
 import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
 import com.lighthouse.api.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
-
 import com.lighthouse.api.model.enums.InterfaceInfoStatusEnum;
 import com.lighthouse.api.service.InterfaceInfoService;
 import com.lighthouse.api.service.UserService;
 import com.lighthouse.common.entity.InterfaceInfo;
 import com.lighthouse.common.entity.User;
+import com.lighthouse.sdk.client.BaseContext;
 import com.lighthouse.sdk.client.LightHouseAPIClient;
+import com.lighthouse.sdk.service.impl.APIServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * 接口管理
@@ -43,7 +45,7 @@ public class InterfaceInfoController {
     private UserService userService;
 
     @Resource
-    private LightHouseAPIClient lightHouseAPIClient;
+    BaseContext baseContext;
 
 
     /**
@@ -243,13 +245,24 @@ public class InterfaceInfoController {
         ThrowUtils.throwIf(oldInterfaceInfo.getStatus() == InterfaceInfoStatusEnum.OFFLINE.getValue(), ErrorCode.SYSTEM_ERROR, "接口已关闭");
 
         User loginUser = userService.getLoginUser(request);
+        BaseContext definitionBaseContext = definitionBaseContext(loginUser);
+        URL url;
+        try {
+            url = new URL(oldInterfaceInfo.getUrl());
+        } catch (MalformedURLException e) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        String result = definitionBaseContext.handler(url.getPath(), oldInterfaceInfo.getMethod(), userRequestParams);
+        return ResultUtils.success(result);
+    }
+
+    private BaseContext definitionBaseContext(User loginUser) {
         String accessKey = loginUser.getAccessKey();
         String secretKey = loginUser.getSecretKey();
-        LightHouseAPIClient tempClient = new LightHouseAPIClient(accessKey, secretKey);
-        Gson gson = new Gson();
-        com.lighthouse.sdk.model.User user = gson.fromJson(userRequestParams, com.lighthouse.sdk.model.User.class);
-        String result = tempClient.getUsernameByPost(user);
-        return ResultUtils.success(result);
+        APIServiceImpl apiService = new APIServiceImpl();
+        apiService.setLightHouseAPIClient(new LightHouseAPIClient(accessKey, secretKey));
+        baseContext.setAPIService(apiService);
+        return baseContext;
     }
 
 }

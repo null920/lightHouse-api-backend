@@ -1,7 +1,4 @@
-# 测试配置文件
-server:
-  port: 9527
-  # 接口文档配置
+# 接口文档配置
 knife4j:
   enable: true
   openapi:

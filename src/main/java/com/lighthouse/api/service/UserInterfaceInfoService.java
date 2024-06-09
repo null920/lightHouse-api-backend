@@ -4,6 +4,8 @@ package com.lighthouse.api.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lighthouse.common.entity.UserInterfaceInfo;
 
+import java.util.List;
+
 
 /**
  * @author Ycri
@@ -28,4 +30,7 @@ public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
      * @return 是否成功
      */
     boolean invokeCount(long interfaceInfoId, long userId);
+
+
+    void refreshInvokeCount(List<Long> userInterfaceInfoIdList);
 }

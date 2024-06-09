@@ -28,6 +28,14 @@ public interface UserService extends IService<User> {
     long userRegister(String userAccount, String userPassword, String checkPassword);
 
     /**
+     * 给首次注册的用户分配调用次数
+     *
+     * @param userId 用户id
+     */
+
+    void distributeInvokeCount(Long userId);
+
+    /**
      * 用户登录
      *
      * @param userAccount  用户账户

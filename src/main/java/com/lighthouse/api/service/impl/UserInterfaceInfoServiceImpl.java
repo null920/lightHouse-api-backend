@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -85,6 +86,14 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
                 lock.unlock();
             }
         }
+    }
+
+    @Override
+    public void refreshInvokeCount(List<Long> userInterfaceInfoIdList) {
+        UpdateWrapper<UserInterfaceInfo> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.in("id", userInterfaceInfoIdList);
+        updateWrapper.set("left_invoke_num", 10);
+        this.update(updateWrapper);
     }
 }
 

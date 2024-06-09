@@ -1,13 +1,11 @@
-# Docker 镜像构建
-FROM maven:3.8.1-jdk-8-slim as builder
+# 使用官方 OpenJDK 8 镜像作为基础镜像
+FROM openjdk:8-jdk-alpine
 
-# Copy local code to the container image.
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-
-# Build a release artifact.
-RUN mvn package -DskipTests
-
-# Run the web service on container startup.
-CMD ["java","-jar","/app/target/lightHouse-api-backend-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]
+# 复制应用的 jar 文件到镜像内部
+COPY ./lightHouse-api-backend-0.0.1-SNAPSHOT.jar /lightHouse-api-backend-0.0.1-SNAPSHOT.jar
+# 声明运行时容器提供服务端口（可选，用于EXPOSE指令告诉Docker该容器对外暴露哪些端口）
+EXPOSE 9527
+# 指定容器启动时运行 jar 包
+ENTRYPOINT ["java","-jar","/lightHouse-api-backend-0.0.1-SNAPSHOT.jar"]
+# 可以使用CMD指定默认启动参数（例如：--spring.profiles.active=prod）
+CMD ["--spring.profiles.active=prod"]

@@ -86,7 +86,7 @@ create table if not exists lightHouse_api.`user_interface_info`
     `user_id`           bigint                             not null comment '调用用户 id',
     `interface_info_id` bigint                             not null comment '被调用接口 id',
     `total_invoke_num`  bigint   default 0                 not null comment '总接口调用次数',
-    `left_invoke_num`   bigint   default 0                 not null comment '剩余接口调用次数',
+    `left_invoke_num`   bigint   default 10                not null comment '剩余接口调用次数',
     `status`            tinyint  default 0                 not null comment '0-正常 1-禁用',
     `create_time`       datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     `update_time`       datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',

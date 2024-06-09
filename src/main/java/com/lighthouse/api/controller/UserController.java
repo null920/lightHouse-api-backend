@@ -58,6 +58,7 @@ public class UserController {
             return null;
         }
         long result = userService.userRegister(userAccount, userPassword, checkPassword);
+        userService.distributeInvokeCount(result);
         return ResultUtils.success(result);
     }
 

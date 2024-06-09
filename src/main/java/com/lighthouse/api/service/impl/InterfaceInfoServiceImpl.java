@@ -1,6 +1,7 @@
 package com.lighthouse.api.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lighthouse.api.common.ErrorCode;
@@ -9,6 +10,7 @@ import com.lighthouse.api.exception.ThrowUtils;
 import com.lighthouse.api.mapper.InterfaceInfoMapper;
 import com.lighthouse.api.service.InterfaceInfoService;
 import com.lighthouse.common.entity.InterfaceInfo;
+import com.lighthouse.common.entity.UserInterfaceInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +44,6 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "名称过长");
         }
     }
-
-
 }
 
 

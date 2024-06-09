@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lighthouse.api.common.ErrorCode;
 import com.lighthouse.api.constant.CommonConstant;
 import com.lighthouse.api.exception.BusinessException;
+import com.lighthouse.api.mapper.InterfaceInfoMapper;
+import com.lighthouse.api.mapper.UserInterfaceInfoMapper;
 import com.lighthouse.api.mapper.UserMapper;
 import com.lighthouse.api.model.dto.user.UserQueryRequest;
 import com.lighthouse.api.model.enums.UserRoleEnum;
@@ -15,13 +17,17 @@ import com.lighthouse.api.model.vo.LoginUserVO;
 import com.lighthouse.api.model.vo.UserVO;
 import com.lighthouse.api.service.UserService;
 import com.lighthouse.api.utils.SqlUtils;
+import com.lighthouse.common.entity.InterfaceInfo;
 import com.lighthouse.common.entity.User;
+import com.lighthouse.common.entity.UserInterfaceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,12 @@ import static com.lighthouse.api.constant.UserConstant.USER_LOGIN_STATE;
 @Service
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Resource
+    UserInterfaceInfoMapper userInterfaceInfoMapper;
+
+    @Resource
+    InterfaceInfoMapper interfaceInfoMapper;
 
     /**
      * 盐值，混淆密码
@@ -80,9 +92,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if (!saveResult) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "注册失败，数据库错误");
             }
-
             return user.getId();
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void distributeInvokeCount(Long userId) {
+        if (userId == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>();
+        List<InterfaceInfo> interfaceInfoList = interfaceInfoMapper.selectList(queryWrapper);
+        List<Long> interfaceIdList = interfaceInfoList.stream().map(InterfaceInfo::getId).collect(Collectors.toList());
+        interfaceIdList.forEach(interfaceId -> {
+            UserInterfaceInfo userInterfaceInfo = new UserInterfaceInfo();
+            userInterfaceInfo.setUserId(userId);
+            userInterfaceInfo.setInterfaceInfoId(interfaceId);
+            userInterfaceInfoMapper.insert(userInterfaceInfo);
+        });
     }
 
     @Override
