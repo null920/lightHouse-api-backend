@@ -47,8 +47,8 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
     @DubboReference
     private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
 
-    private static final List<String> IP_WHITE_LIST = Arrays.asList("127.0.0.1");
-    private static final String INTERFACE_HOST = "http://localhost:8023";
+    //    private static final List<String> IP_WHITE_LIST = Arrays.asList("127.0.0.1");
+    private static final String INTERFACE_HOST = "http://123.60.133.159:8023";
 
 
     @Override
@@ -63,12 +63,12 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
         log.info("request url: {}", url);
         log.info("request remote address: {}", request.getRemoteAddress());
         String hostAddress = request.getLocalAddress().getHostString();
-        log.info("request remote address: {}", hostAddress);
+        log.info("request host address: {}", hostAddress);
         ServerHttpResponse response = exchange.getResponse();
-        if (!IP_WHITE_LIST.contains(hostAddress)) {
-            response.setStatusCode(HttpStatus.FORBIDDEN);
-            return handleNoAuth(response);
-        }
+//        if (!IP_WHITE_LIST.contains(hostAddress)) {
+//            response.setStatusCode(HttpStatus.FORBIDDEN);
+//            return handleNoAuth(response);
+//        }
 
         HttpHeaders headers = request.getHeaders();
         String accessKey = headers.getFirst("accessKey");
@@ -84,20 +84,24 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             log.error("getInvokeUser error", e);
         }
         if (invokeUser == null) {
+            log.error("invokeUser==null");
             return handleNoAuth(response);
         }
         if (nonce == null || Long.parseLong(nonce) > 10000L) {
+            log.error("nonce>10000");
             return handleNoAuth(response);
         }
         // 请求时间和当前时间不能超过 5 分钟
         long currentTime = System.currentTimeMillis() / 1000;
         final long FIVE_MINUTES = 60 * 5L;
         if (timestamp == null || (currentTime - Long.parseLong(timestamp)) >= FIVE_MINUTES) {
+            log.error("timestamp");
             return handleNoAuth(response);
         }
         String secretKey = invokeUser.getSecretKey();
         String signKey = SignUtils.getSign(body, secretKey);
         if (sign == null || !sign.equals(signKey)) {
+            log.error("sign");
             return handleNoAuth(response);
         }
         InterfaceInfo interfaceInfo = null;
@@ -107,6 +111,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             log.error("get interfaceInfo error", e);
         }
         if (interfaceInfo == null) {
+            log.error("interfaceInfo null");
             return handleNoAuth(response);
         }
         long leftInvokeNum = 0;
@@ -116,9 +121,9 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             log.error("left invoke num insufficient", e);
         }
         if (leftInvokeNum == 0) {
+            log.error("leftInvokeNum");
             return handleNoAuth(response);
         }
-
         return handleResponse(exchange, chain, interfaceInfo.getId(), invokeUser.getId());
     }
 

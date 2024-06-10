@@ -31,12 +31,6 @@
             <groupId>com.lighthouse</groupId>
             <artifactId>lightHouse-api-common</artifactId>
             <version>0.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -101,7 +95,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.lighthouse.gateway.LightHouseApiGatewayApplication</mainClass>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>

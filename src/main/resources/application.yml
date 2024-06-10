@@ -6,9 +6,9 @@ spring:
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/light_house_api
+    url: jdbc:mysql://112.124.30.191:3306/light_house_api
     username: root
-    password: bjiojghidfjhioj
+    password: 2F!j9mPc7#DwN&JSa56
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
@@ -19,7 +19,7 @@ spring:
   # redis 配置
   redis:
     port: 6379
-    host: localhost
+    host: 112.124.30.191
     database: 3
   servlet:
     multipart:
@@ -29,6 +29,10 @@ server:
   port: 9527
   servlet:
     context-path: /api
+    session:
+      timeout: 1440m
+      cookie:
+        domain: localhost
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
@@ -46,12 +50,11 @@ mybatis-plus:
 #      secret-key: abcdefgh
 dubbo:
   application:
-    name: dubbo-springboot-demo-provider
+    name: dubbo-api-provider
     logger: slf4j
   protocol:
     name: dubbo
     port: -1
   registry:
-    id: nacos-registry
-    address: nacos://localhost:8848
-
+    timeout: 5000
+    address: nacos://36.133.31.228:8848

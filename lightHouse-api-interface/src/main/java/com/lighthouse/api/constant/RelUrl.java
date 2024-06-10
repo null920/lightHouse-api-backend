@@ -6,7 +6,7 @@ package com.lighthouse.api.constant;
  */
 public interface RelUrl {
 
-    String FISHED_URL = "https://j4u.ink/moyuya";
+    String FISHED_URL = "https://api.vvhan.com/api/moyu";
 
     String WORKER_URL = "https://api.vvhan.com/api/zhichang";
 

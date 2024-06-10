@@ -38,16 +38,7 @@ public class InterfaceAPIServiceImpl implements InterfaceAPIService {
                 .get(RelUrl.FISHED_URL)
                 .execute();
         String href = getURL(response.body());
-        HttpResponse res = HttpRequest
-                .get(href)
-                .execute();
-        String resultBody = res.body();
-        if (resultBody.contains("<title>404 Not Found</title>")) {
-            throw new RuntimeException("接口失效");
-        }
-        JSONObject jsonObject = new JSONObject(resultBody);
-        String moyuUrl = jsonObject.getJSONObject("data").getString("moyu_url");
-        return "{\"url\":\"" + moyuUrl + "\"}";
+        return "{\"url\":\"" + href + "\"}";
     }
 
     @Override

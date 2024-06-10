@@ -5,6 +5,8 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lighthouse.api.common.ErrorCode;
 import com.lighthouse.api.constant.CommonConstant;
 import com.lighthouse.api.exception.BusinessException;
@@ -138,7 +140,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在或密码错误");
         }
         // 3. 记录用户的登录态
-        request.getSession().setAttribute(USER_LOGIN_STATE, user);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(user);
+        // 记录用户的登录态
+        request.getSession().setAttribute(USER_LOGIN_STATE, userJson);
         return this.getLoginUserVO(user);
     }
 
@@ -151,18 +156,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getLoginUser(HttpServletRequest request) {
         // 先判断是否已登录
-        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        User currentUser = (User) userObj;
-        if (currentUser == null || currentUser.getId() == null) {
+        if (request == null) {
+            return null;
+        }
+        String userJson = (String) request.getSession().getAttribute(USER_LOGIN_STATE);
+        Gson gson = new Gson();
+        User loginUser = gson.fromJson(userJson, new TypeToken<User>() {
+        }.getType());
+        if (loginUser == null || loginUser.getId() == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
         // 从数据库查询（追求性能的话可以注释，直接走缓存）
-        long userId = currentUser.getId();
-        currentUser = this.getById(userId);
-        if (currentUser == null) {
+        long userId = loginUser.getId();
+        loginUser = this.getById(userId);
+        if (loginUser == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
-        return currentUser;
+        return loginUser;
     }
 
     /**
