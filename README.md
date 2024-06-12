@@ -7,6 +7,10 @@
 
 前端地址：[数字灯塔-API开放平台（前端）](https://github.com/null920/lightHouse-api-frontend)
 
+## 架构图
+
+![img-架构图.png](./img/架构图.jpg)
+
 ## 技术栈
 
 * Java
