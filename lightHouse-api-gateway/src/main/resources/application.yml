@@ -27,4 +27,4 @@ dubbo:
     port: -1
   registry:
     timeout: 5000
-    address: nacos://36.133.31.228:8848
+    address: nacos://localhost:8848

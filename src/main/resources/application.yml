@@ -6,7 +6,7 @@ spring:
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://112.124.30.191:3306/light_house_api
+    url: jdbc:mysql://localhost:3306/light_house_api
     username: root
     password: 2F!j9mPc7#DwN&JSa56
   mvc:
@@ -19,7 +19,7 @@ spring:
   # redis 配置
   redis:
     port: 6379
-    host: 112.124.30.191
+    host: localhost
     database: 3
   servlet:
     multipart:
@@ -57,4 +57,4 @@ dubbo:
     port: -1
   registry:
     timeout: 5000
-    address: nacos://36.133.31.228:8848
+    address: nacos://localhost:8848
